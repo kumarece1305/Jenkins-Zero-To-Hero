@@ -59,9 +59,14 @@ pipeline {
                     git clean -fd
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s/tagname/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    git diff --exit-code
+                    if  [ $? -eq 1 ]; then
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                    else
+                     echo "No changes to commit"
+                    fi
                 '''
             }
         }
