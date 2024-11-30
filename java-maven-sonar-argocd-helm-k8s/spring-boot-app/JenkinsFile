@@ -74,7 +74,7 @@ pipeline {
    stage('Deploying App to Kubernetes') {
       steps {
         script {
-          kubernetesDeploy(configs: "deployment.yml,service.yml", kubeconfigId: "kubernetes")
+          kubernetesDeploy(configs: "java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml,java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/service.yml", kubeconfigId: "kubernetes")
         }
       }
     }
